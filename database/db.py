@@ -4,10 +4,10 @@ from psycopg2 import DatabaseError
 def get_connection():
     try:
         return psycopg2.connect(
-            host='ec2-44-206-214-233.compute-1.amazonaws.com',
-            user='wfldkdohudqmvn',
-            password='1dd039070e834b07ce6fb4d143b0fcf71ec3fcdcb36c1105b086abd3bc194e6f',
-            database='d22q19sngc4mt2'
+            host='ec2-50-19-255-190.compute-1.amazonaws.com',
+            user='waurhzodsccaoj',
+            password='07586a7a5e0edf933eadf34d4fa15a7fef79d8f406ea1bb0c79cc1ee004f029f',
+            database='dcaqg5enote566'
         )
     except DatabaseError as ex:
         raise ex
