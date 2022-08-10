@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 from routes import User, SetupSystems, SetupBodyOrgans, SetupFindings, SetupSymptoms
 app = Flask(__name__)
 # Routes
