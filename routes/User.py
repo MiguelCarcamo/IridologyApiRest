@@ -97,7 +97,7 @@ def login_user():
         if user != None:
             return jsonify(user)
         else:
-            return jsonify({}), 404
+            return dict(msj='Accion no fue Completada'), 500
 
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500

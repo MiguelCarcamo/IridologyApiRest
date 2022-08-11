@@ -1,8 +1,10 @@
 from flask import Flask
+from flask_cors import CORS
 from routes import User, SetupSystems, SetupBodyOrgans, SetupFindings, SetupSymptoms
 app = Flask(__name__)
 # Routes
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/')
 def index():
     return "<h1>Welcome to our server !!</h1>"
