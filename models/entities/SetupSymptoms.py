@@ -11,7 +11,7 @@ class SetupSymptoms():
 
     def to_JSON(self):
         return {
-            'IDSetupSymptoms': self.IDSetupSymptoms,
+            'id': self.IDSetupSymptoms,
             'IDSetupBodyOrgans': self.IDSetupBodyOrgans,
             'Symptoms': self.Symptoms,
             'RangeMax': self.RangeMax,

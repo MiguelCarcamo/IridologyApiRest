@@ -15,7 +15,7 @@ class SetupBodyOrgans():
 
     def to_JSON(self):
         return {
-            'IDSetupBodyOrgans': self.IDSetupBodyOrgans,
+            'id': self.IDSetupBodyOrgans,
             'IDSetupSystems': self.IDSetupSystems,
             'BodyOrgans': self.BodyOrgans,
             'Left': self.Left,

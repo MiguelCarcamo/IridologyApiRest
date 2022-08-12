@@ -12,7 +12,7 @@ class SetupFindings():
 
     def to_JSON(self):
         return {
-            'IDSetupFindings': self.IDSetupFindings,
+            'id': self.IDSetupFindings,
             'IDSetupBodyOrgans': self.IDSetupBodyOrgans,
             'Foods': self.Foods,
             'NotFoods': self.NotFoods,

@@ -10,7 +10,7 @@ class SetupSystems():
 
     def to_JSON(self):
         return {
-            'idsetupsystems': self.idsetupsystems,
+            'id': self.idsetupsystems,
             'setupsystems': self.setupsystems,
             'rangemax': self.rangemax,
             'rangemin': self.rangemin,
