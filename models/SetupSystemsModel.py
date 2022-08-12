@@ -11,7 +11,7 @@ class SetupSystemsModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idsetupsystems, setupsystems, rangemax, rangemin, lenguage
+                    SELECT idsetupsystems as id, setupsystems, rangemax, rangemin, lenguage
                     FROM setupsystems;
                 """
                 cursor.execute(textSQL)
