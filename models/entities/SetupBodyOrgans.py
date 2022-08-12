@@ -1,8 +1,9 @@
 class SetupBodyOrgans():
 
-    def __init__(self, IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage) -> None:
+    def __init__(self, IDSetupBodyOrgans, IDSetupSystems, SetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage) -> None:
         self.IDSetupBodyOrgans = IDSetupBodyOrgans
         self.IDSetupSystems = IDSetupSystems
+        self.SetupSystems = SetupSystems
         self.BodyOrgans = BodyOrgans
         self.Left = Left
         self.Right = Right
@@ -17,6 +18,7 @@ class SetupBodyOrgans():
         return {
             'id': self.IDSetupBodyOrgans,
             'IDSetupSystems': self.IDSetupSystems,
+            'SetupSystems': self.SetupSystems,
             'BodyOrgans': self.BodyOrgans,
             'Left': self.Left,
             'Right': self.Right,

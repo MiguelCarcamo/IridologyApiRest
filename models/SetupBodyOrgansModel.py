@@ -11,15 +11,16 @@ class SetupBodyOrgansModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idsetupbodyorgans, idsetupsystems, bodyorgans, "Left", "Right", 
-                        men, womman, rangemax, rangemin, lenguage
-	                FROM setupbodyorgans;
+                    SELECT idsetupbodyorgans, setupbodyorgans.idsetupsystems, setupsystems.setupsystems, bodyorgans, "Left", "Right", 
+                        men, womman, setupbodyorgans.rangemax, setupbodyorgans.rangemin, setupbodyorgans.lenguage
+                    FROM setupbodyorgans
+                    LEFT JOIN setupsystems on setupsystems.idsetupsystems = setupbodyorgans.idsetupsystems;
                 """
                 cursor.execute(textSQL)
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    setupbodyorgansx = SetupBodyOrgans(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+                    setupbodyorgansx = SetupBodyOrgans(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])
                     setupbodyorgans.append(setupbodyorgansx.to_JSON())
 
             connection.close()
