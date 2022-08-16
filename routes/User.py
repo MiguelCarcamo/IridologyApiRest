@@ -52,6 +52,21 @@ def add_user():
         affected_rows = UserModel.add_user(idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage, xUser, userPassword, TypeUser )
 
         if affected_rows == 1:
+            import smtplib, ssl
+            port = 465  # For SSL
+            smtp_server = "smtp.gmail.com"
+            sender_email = "iridology.app@gmail.com"  # Enter your address
+            receiver_email = usermail  # Enter receiver address
+            password = "ccbgmkysnepjjikw"
+            message = f"""\
+            Subject: Welcome to App Iridology
+
+            Your username is: {xUser}"""
+
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+                server.login(sender_email, password)
+                server.sendmail(sender_email, receiver_email, message)
             return dict(msj='Accion Realizada Correctamente')
         else:
             return dict(msj='Accion no fue Completada'), 500
