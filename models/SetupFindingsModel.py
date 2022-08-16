@@ -11,15 +11,16 @@ class SetupFindingsModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idsetupfindings, idsetupbodyorgans, foods, notfoods, findings, 
-                           rangemax, rangemin, lenguage
-	                FROM setupfindings;
+                    SELECT idsetupfindings, setupbodyorgans.idsetupbodyorgans, setupbodyorgans.bodyorgans, foods, notfoods, findings, 
+                        setupfindings.rangemax, setupfindings.rangemin, setupfindings.lenguage
+                    FROM setupfindings
+                    LEFT JOIN setupbodyorgans on setupfindings.idsetupbodyorgans = setupbodyorgans.idsetupbodyorgans;
                 """
                 cursor.execute(textSQL)
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    setupfindingsx = SetupFindings(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+                    setupfindingsx = SetupFindings(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
                     setupfindings.append(setupfindingsx.to_JSON())
 
             connection.close()
@@ -35,9 +36,10 @@ class SetupFindingsModel():
 
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    SELECT idsetupfindings, idsetupbodyorgans, foods, notfoods, findings, 
-                           rangemax, rangemin, lenguage
-	                FROM setupfindings
+                    SELECT idsetupfindings, setupbodyorgans.idsetupbodyorgans, setupbodyorgans.bodyorgans, foods, notfoods, findings, 
+                        setupfindings.rangemax, setupfindings.rangemin, setupfindings.lenguage
+                    FROM setupfindings
+                    LEFT JOIN setupbodyorgans on setupfindings.idsetupbodyorgans = setupbodyorgans.idsetupbodyorgans;
                     WHERE idsetupfindings = {id};
                 """
                 cursor.execute(textSQL)
@@ -45,7 +47,7 @@ class SetupFindingsModel():
                 setupfindings = None
 
                 if row != None:
-                    setupfindings = SetupFindings(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+                    setupfindings = SetupFindings(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
                     setupfindings = setupfindings.to_JSON()
 
             connection.close()

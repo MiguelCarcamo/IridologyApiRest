@@ -11,14 +11,15 @@ class SetupSymptomsModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idsetupsymptoms, idsetupbodyorgans, symptoms, rangemax, rangemin, lenguage
-	                FROM setupsymptoms;
+                    SELECT idsetupsymptoms, setupbodyorgans.idsetupbodyorgans, setupbodyorgans.bodyorgans, symptoms, setupsymptoms.rangemax, setupsymptoms.rangemin, setupsymptoms.lenguage
+                    FROM setupsymptoms
+                    LEFT JOIN setupbodyorgans on setupsymptoms.idsetupbodyorgans = setupbodyorgans.idsetupbodyorgans;
                 """
                 cursor.execute(textSQL)
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    setupsymptomsx = SetupSymptoms(row[0], row[1], row[2], row[3], row[4], row[5])
+                    setupsymptomsx = SetupSymptoms(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
                     setupsymptoms.append(setupsymptomsx.to_JSON())
 
             connection.close()
@@ -34,8 +35,9 @@ class SetupSymptomsModel():
 
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    SELECT idsetupsymptoms, idsetupbodyorgans, symptoms, rangemax, rangemin, lenguage
-	                FROM setupsymptoms
+                    SELECT idsetupsymptoms, setupbodyorgans.idsetupbodyorgans, setupbodyorgans.bodyorgans, symptoms, setupsymptoms.rangemax, setupsymptoms.rangemin, setupsymptoms.lenguage
+                    FROM setupsymptoms
+                    LEFT JOIN setupbodyorgans on setupsymptoms.idsetupbodyorgans = setupbodyorgans.idsetupbodyorgans;
                     WHERE idsetupsymptoms = {id};
                 """
                 cursor.execute(textSQL)
@@ -43,7 +45,7 @@ class SetupSymptomsModel():
                 setupsymptoms = None
 
                 if row != None:
-                    setupsymptomsx = SetupSymptoms(row[0], row[1], row[2], row[3], row[4], row[5])
+                    setupsymptomsx = SetupSymptoms(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
                     setupsymptoms = setupsymptomsx.to_JSON()
 
             connection.close()

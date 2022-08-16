@@ -1,8 +1,9 @@
 class SetupFindings():
 
-    def __init__(self, IDSetupFindings, IDSetupBodyOrgans, Foods, NotFoods, Findings, RangeMax, RangeMin, Lenguage) -> None:
+    def __init__(self, IDSetupFindings, IDSetupBodyOrgans, SetupBodyOrgans, Foods, NotFoods, Findings, RangeMax, RangeMin, Lenguage) -> None:
         self.IDSetupFindings = IDSetupFindings
         self.IDSetupBodyOrgans = IDSetupBodyOrgans
+        self.SetupBodyOrgans = SetupBodyOrgans
         self.Foods = Foods
         self.NotFoods = NotFoods
         self.Findings = Findings
@@ -14,6 +15,7 @@ class SetupFindings():
         return {
             'id': self.IDSetupFindings,
             'IDSetupBodyOrgans': self.IDSetupBodyOrgans,
+            'SetupBodyOrgans': self.SetupBodyOrgans,
             'Foods': self.Foods,
             'NotFoods': self.NotFoods,
             'Findings': self.Findings,
