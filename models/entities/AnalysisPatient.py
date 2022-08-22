@@ -12,7 +12,7 @@ class AnalysisPatient():
 
     def to_JSON(self):
         return {
-            'IDPatient': self.IDPatient,
+            'id': self.IDPatient,
             'IDUser': self.IDUser,
             'PatientName': self.PatientName,
             'PatientLastName': self.PatientLastName,
