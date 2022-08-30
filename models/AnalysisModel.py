@@ -11,7 +11,7 @@ class AnalysisModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idanalysis, analysispatient.idpatient,analysispatient.iduser, iddoctor, status, urlleft, urlright, createdate, finishdate
+                    SELECT idanalysis, analysispatient.idpatient, analysispatient.Patientname || ' ' || analysispatient.PatientLastName, analysispatient.iduser, iddoctor, status, urlleft, urlright, createdate, finishdate
                     FROM analysis
                     LEFT JOIN analysispatient on analysis.idpatient = analysispatient.idpatient;
                 """
@@ -19,7 +19,7 @@ class AnalysisModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    Analysisz = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+                    Analysisz = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
                     AnalysisX.append(Analysisz.to_JSON())
 
             connection.close()
@@ -33,7 +33,7 @@ class AnalysisModel():
             connection = get_connection()
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    SELECT idanalysis, analysispatient.idpatient,analysispatient.iduser, iddoctor, status, urlleft, urlright, createdate, finishdate
+                    SELECT idanalysis, analysispatient.idpatient, analysispatient.Patientname || ' ' || analysispatient.PatientLastName, analysispatient.iduser, iddoctor, status, urlleft, urlright, createdate, finishdate
                     FROM analysis
                     LEFT JOIN analysispatient on analysis.idpatient = analysispatient.idpatient
                     where idanalysis = {id};
@@ -43,7 +43,7 @@ class AnalysisModel():
 
                 analysis = None
                 if row != None:
-                    x = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+                    x = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
                     analysis = x.to_JSON()
 
             connection.close()
