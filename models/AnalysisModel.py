@@ -11,14 +11,15 @@ class AnalysisModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idanalysis, idpatient, iddoctor, status, urlleft, urlright, createdate, finishdate
-                    FROM analysis;
+                    SELECT idanalysis, analysispatient.idpatient,analysispatient.iduser, iddoctor, status, urlleft, urlright, createdate, finishdate
+                    FROM analysis
+                    LEFT JOIN analysispatient on analysis.idpatient = analysispatient.idpatient;
                 """
                 cursor.execute(textSQL)
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    Analysisz = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+                    Analysisz = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
                     AnalysisX.append(Analysisz.to_JSON())
 
             connection.close()
@@ -32,8 +33,9 @@ class AnalysisModel():
             connection = get_connection()
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    SELECT idanalysis, idpatient, iddoctor, status, urlleft, urlright
+                    SELECT idanalysis, analysispatient.idpatient,analysispatient.iduser, iddoctor, status, urlleft, urlright, createdate, finishdate
                     FROM analysis
+                    LEFT JOIN analysispatient on analysis.idpatient = analysispatient.idpatient
                     where idanalysis = {id};
                 """
                 cursor.execute(textSQL)
@@ -41,7 +43,7 @@ class AnalysisModel():
 
                 analysis = None
                 if row != None:
-                    x = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+                    x = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
                     analysis = x.to_JSON()
 
             connection.close()

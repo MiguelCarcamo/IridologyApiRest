@@ -1,8 +1,9 @@
 class Analysis():
 
-    def __init__(self, IDAnalysis, IDPatient=None, IDDoctor=None, Status=None, URLLeft=None, URLRight=None, CreateDate=None, FinishDate=None) -> None:
+    def __init__(self, IDAnalysis, IDPatient=None, IDUser=None, IDDoctor=None, Status=None, URLLeft=None, URLRight=None, CreateDate=None, FinishDate=None) -> None:
         self.IDAnalysis = IDAnalysis
         self.IDPatient = IDPatient
+        self.IDUser = IDUser
         self.IDDoctor = IDDoctor
         self.URLLeft = URLLeft
         self.URLRight = URLRight
@@ -14,6 +15,7 @@ class Analysis():
         return {
             'id': self.IDAnalysis,
             'IDPatient': self.IDPatient,
+            'IDUser': self.IDUser,
             'IDDoctor': self.IDDoctor,
             'CreateDate': self.CreateDate,
             'FinishDate': self.FinishDate,
