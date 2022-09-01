@@ -11,7 +11,7 @@ class AnalysisModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idanalysis, analysispatient.idpatient, analysispatient.Patientname || ' ' || analysispatient.PatientLastName, analysispatient.iduser, iddoctor, status, urlleft, urlright, createdate, finishdate
+                    SELECT idanalysis, analysispatient.idpatient, analysispatient.Patientname || ' ' || analysispatient.PatientLastName, analysispatient.iduser, iddoctor, case when status = 1 then 'NEW' when status = 2 then 'IN PROCESS' when status = 3 then 'COMPLETE' ELSE 'DELETE' END, urlleft, urlright, createdate, finishdate
                     FROM analysis
                     LEFT JOIN analysispatient on analysis.idpatient = analysispatient.idpatient;
                 """
@@ -33,7 +33,7 @@ class AnalysisModel():
             connection = get_connection()
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    SELECT idanalysis, analysispatient.idpatient, analysispatient.Patientname || ' ' || analysispatient.PatientLastName, analysispatient.iduser, iddoctor, status, urlleft, urlright, createdate, finishdate
+                    SELECT idanalysis, analysispatient.idpatient, analysispatient.Patientname || ' ' || analysispatient.PatientLastName, analysispatient.iduser, iddoctor, case when status = 1 then 'NEW' when status = 2 then 'IN PROCESS' when status = 3 then 'COMPLETE' ELSE 'DELETE' END, urlleft, urlright, createdate, finishdate
                     FROM analysis
                     LEFT JOIN analysispatient on analysis.idpatient = analysispatient.idpatient
                     where idanalysis = {id};
