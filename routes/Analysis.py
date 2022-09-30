@@ -68,7 +68,7 @@ def update_Analysis():
         return jsonify({'message': str(ex)}), 500
 
 @main.route('/update2', methods=['PUT'])
-def update_Analysis():
+def assigned_Analysis():
     try:
         Analysis_details = request.get_json()
 
