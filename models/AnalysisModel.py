@@ -11,7 +11,10 @@ class AnalysisModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idanalysis, analysispatient.idpatient, analysispatient.Patientname || ' ' || analysispatient.PatientLastName, analysispatient.iduser, iddoctor, case when status = 1 then 'NEW' when status = 2 then 'IN PROCESS' when status = 3 then 'COMPLETE' ELSE 'DELETE' END, urlleft, urlright, createdate, finishdate
+                    SELECT idanalysis, analysispatient.idpatient, analysispatient.Patientname || ' ' || analysispatient.PatientLastName as name,
+                        analysispatient.iduser, iddoctor, gender,
+                        case when status = 1 then 'NEW' when status = 2 then 'IN PROCESS' when status = 3 then 'COMPLETE' ELSE 'DELETE' END,
+                        urlleft, urlright, createdate, finishdate
                     FROM analysis
                     LEFT JOIN analysispatient on analysis.idpatient = analysispatient.idpatient;
                 """
@@ -19,7 +22,7 @@ class AnalysisModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    Analysisz = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+                    Analysisz = Analysis(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])
                     AnalysisX.append(Analysisz.to_JSON())
 
             connection.close()
@@ -52,15 +55,15 @@ class AnalysisModel():
             raise Exception(ex)
 
     @classmethod
-    def add_Analysis(self, IDAnalysis, IDPatient, IDDoctor, URLLeft, URLRight, Status):
+    def add_Analysis(self, IDAnalysis, IDPatient, URLLeft, URLRight, Status):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
                 textSQL = f"""
                     INSERT INTO analysis(
-                    idanalysis, idpatient, createdate, iddoctor, status, urlleft, urlright)
-                    VALUES ({IDAnalysis}, {IDPatient}, NOW(), {IDDoctor}, {Status}, '{URLLeft}', '{URLRight}');
+                    idanalysis, idpatient, createdate, status, urlleft, urlright)
+                    VALUES ({IDAnalysis}, {IDPatient}, NOW(), {Status}, '{URLLeft}', '{URLRight}');
                 """
                 cursor.execute(textSQL)
                 affected_rows = cursor.rowcount
@@ -81,6 +84,27 @@ class AnalysisModel():
                         SET status= {Status}
                     WHERE idanalysis={IDAnalysis};
                 """
+                cursor.execute(textSQL)
+                affected_rows = cursor.rowcount
+                connection.commit()
+            connection.close()
+            return affected_rows
+        except Exception as ex:
+            raise Exception(ex)
+    
+    @classmethod
+    def assigned_Analysis(self, IDAnalysis, IDDoctor, Gender):
+        try:
+            connection = get_connection()
+            if Gender == 'M':
+                textSQL = f"""
+                    call analisysmen({IDAnalysis}, {IDDoctor}); 
+                """
+            else:
+                textSQL = f"""
+                    call analisyswomman({IDAnalysis}, {IDDoctor}); 
+                """
+            with connection.cursor() as cursor:
                 cursor.execute(textSQL)
                 affected_rows = cursor.rowcount
                 connection.commit()

@@ -28,7 +28,6 @@ def add_Analysis():
 
         # IDAnalysis = Analysis_details[0]['IDPatient']
         IDPatient = Analysis_details[0]['IDPatient']
-        IDDoctor = Analysis_details[0]['IDDoctor']
         URLLeft = Analysis_details[0]['URLLeft']
         URLRight = Analysis_details[0]['URLRight']
         Status = Analysis_details[0]['Status']
@@ -40,7 +39,7 @@ def add_Analysis():
         connection.close()
         IDAnalysis= int(id[0])
 
-        affected_rows = AnalysisModel.add_Analysis(IDAnalysis, IDPatient, IDDoctor, URLLeft, URLRight, Status)
+        affected_rows = AnalysisModel.add_Analysis(IDAnalysis, IDPatient, URLLeft, URLRight, Status)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')
@@ -59,6 +58,25 @@ def update_Analysis():
         Status = Analysis_details[0]['Status']
 
         affected_rows = AnalysisModel.update_Analysis(IDAnalysis, Status)
+
+        if affected_rows == 1:
+            return dict(msj='Accion Realizada Correctamente')
+        else:
+            return dict(msj='Accion no fue Completada'), 500
+
+    except Exception as ex:
+        return jsonify({'message': str(ex)}), 500
+
+@main.route('/update2', methods=['PUT'])
+def update_Analysis():
+    try:
+        Analysis_details = request.get_json()
+
+        IDAnalysis = Analysis_details[0]['IDAnalysis']
+        IDDoctor = Analysis_details[0]['IDDoctor']
+        Gender = Analysis_details[0]['Gender']
+
+        affected_rows = AnalysisModel.assigned_Analysis(IDAnalysis, IDDoctor, Gender)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')
