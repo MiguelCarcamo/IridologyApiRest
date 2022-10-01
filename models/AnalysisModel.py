@@ -96,18 +96,13 @@ class AnalysisModel():
     def assigned_Analysis(self, IDAnalysis, IDDoctor, Gender):
         try:
             connection = get_connection()
-            if Gender == 'M':
-                textSQL = f"""
-                    call analisysmen({IDAnalysis}, {IDDoctor}); 
-                """
-            else:
-                textSQL = f"""
-                    call analisyswomman({IDAnalysis}, {IDDoctor}); 
-                """
             with connection.cursor() as cursor:
-                cursor.execute(textSQL)
-                affected_rows = cursor.rowcount
+                if Gender == 'M':
+                    cursor.callproc('analisysmen',[IDAnalysis,IDDoctor])
+                else:
+                    cursor.callproc('analisyswomman',[IDAnalysis,IDDoctor])
                 connection.commit()
+                affected_rows = cursor.rowcount
             connection.close()
             return affected_rows
         except Exception as ex:
