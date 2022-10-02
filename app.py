@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from routes import User, SetupSystems, SetupBodyOrgans, SetupFindings, SetupSymptoms, AnalysisPatient, Analysis, File_Action
+from routes import User, SetupSystems, SetupBodyOrgans, SetupFindings, SetupSymptoms, AnalysisPatient, Analysis, File_Action, AnalysisSistems, AnalysisBodyOrgans
 app = Flask(__name__)
 # Routes
 cors = CORS(app)
@@ -16,6 +16,8 @@ app.register_blueprint(SetupFindings.main, url_prefix='/api/SetupFindings')
 app.register_blueprint(SetupSymptoms.main, url_prefix='/api/SetupSymptoms')
 app.register_blueprint(AnalysisPatient.main, url_prefix='/api/AnalysisPatient')
 app.register_blueprint(Analysis.main, url_prefix='/api/Analysis')
+app.register_blueprint(AnalysisSistems.main, url_prefix='/api/AnalysisSistems')
+app.register_blueprint(AnalysisBodyOrgans.main, url_prefix='/api/AnalysisBodyOrgans')
 app.register_blueprint(File_Action.main, url_prefix='/api/File')
 
 if __name__ == '__main__':
