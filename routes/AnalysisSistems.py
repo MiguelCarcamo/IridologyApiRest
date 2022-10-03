@@ -12,3 +12,20 @@ def get_AnalysisSistems(id):
         return jsonify(Analysis)
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
+
+@main.route('/update', methods=['PUT'])
+def update_AnalysisSistems():
+    try:
+        Analysis_details = request.get_json()
+
+        id = Analysis_details[0]['id']
+
+        affected_rows = AnalysisSistemsModel.update_AnalysisSistems(id)
+
+        if affected_rows == 1:
+            return dict(msj='Accion Realizada Correctamente')
+        else:
+            return dict(msj='Accion no fue Completada'), 500
+
+    except Exception as ex:
+        return jsonify({'message': str(ex)}), 500

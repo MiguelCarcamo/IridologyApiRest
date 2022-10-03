@@ -28,17 +28,12 @@ class AnalysisSistemsModel():
             raise Exception(ex)
     
     @classmethod
-    def update_AnalysisSistems(self, id, systemsvalue, comments):
+    def update_AnalysisSistems(self, id):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
-                textSQL = f"""
-                    update analysis_systems
-                    set systemsvalue = {systemsvalue}, comments = '{comments}'
-                    where id = {id};
-                """
-                cursor.execute(textSQL)
+                cursor.callproc('analisysSystems',[id])
                 affected_rows = cursor.rowcount
                 connection.commit()
             connection.close()
