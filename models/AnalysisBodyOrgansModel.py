@@ -29,22 +29,12 @@ class AnalysisBodyOrgansModel():
             raise Exception(ex)
     
     @classmethod
-    def update_AnalysisBodyOrgansModel(self, id, bodyorgansvalue, foods, notfoods, findings, symptoms, comments):
+    def update_AnalysisBodyOrgansModel(self, id, bodyorgansvalue, systems, bodyorgans):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
-                textSQL = f"""
-                    update analysis_bodyorgans
-                    set systemsvalue = {bodyorgansvalue},
-                        foods = '{foods}', 
-                        notfoods = '{notfoods}', 
-                        findings = '{findings}', 
-                        symptoms = '{symptoms}', 
-                        comments = '{comments}'
-                    where id = {id};
-                """
-                cursor.execute(textSQL)
+                cursor.callproc('analisysupdate',[systems, bodyorgans, bodyorgansvalue, id])
                 affected_rows = cursor.rowcount
                 connection.commit()
             connection.close()
