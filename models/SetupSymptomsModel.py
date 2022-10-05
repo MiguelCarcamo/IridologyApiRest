@@ -91,3 +91,21 @@ class SetupSymptomsModel():
             return affected_rows
         except Exception as ex:
             raise Exception(ex)
+
+    def delete_SetupSymptom(self, IDSetupSymptoms):
+        try:
+            connection = get_connection()
+
+            with connection.cursor() as cursor:
+                textSQL = f"""
+                    delete
+                    from setupsymptoms
+                    WHERE idsetupsymptoms={IDSetupSymptoms};
+                """
+                cursor.execute(textSQL)
+                affected_rows = cursor.rowcount
+                connection.commit()
+            connection.close()
+            return affected_rows
+        except Exception as ex:
+            raise Exception(ex)

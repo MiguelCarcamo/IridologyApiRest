@@ -74,3 +74,20 @@ def update_SetupFinding():
 
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
+
+@main.route('/delete', methods=['DELETE'])
+def delete_SetupFinding():
+    try:
+        setupfindings_details = request.get_json()
+
+        IDSetupFindings = setupfindings_details[0]['IDSetupFindings']
+
+        affected_rows = SetupFindingsModel.delete_SetupFinding(IDSetupFindings)
+
+        if affected_rows == 1:
+            return dict(msj='Accion Realizada Correctamente')
+        else:
+            return dict(msj='Accion no fue Completada'), 500
+
+    except Exception as ex:
+        return jsonify({'message': str(ex)}), 500

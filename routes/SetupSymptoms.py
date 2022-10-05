@@ -70,3 +70,20 @@ def update_SetupSymptom():
 
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
+
+@main.route('/delete', methods=['DELETE'])
+def delete_SetupSymptom():
+    try:
+        setupsymptom_details = request.get_json()
+
+        IDSetupSymptoms = setupsymptom_details[0]['IDSetupSymptoms']
+
+        affected_rows = SetupSymptomsModel.delete_SetupSymptom(IDSetupSymptoms)
+
+        if affected_rows == 1:
+            return dict(msj='Accion Realizada Correctamente')
+        else:
+            return dict(msj='Accion no fue Completada'), 500
+
+    except Exception as ex:
+        return jsonify({'message': str(ex)}), 500
