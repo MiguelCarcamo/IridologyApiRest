@@ -11,14 +11,14 @@ class SetupSystemsModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idsetupsystems as id, setupsystems, rangemax, rangemin, lenguage
+                    SELECT idsetupsystems as id, setupsystems, rangemax, rangemin, lenguage, importance_level
                     FROM setupsystems;
                 """
                 cursor.execute(textSQL)
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    setupsystems = SetupSystems(row[0], row[1], row[2], row[3], row[4])
+                    setupsystems = SetupSystems(row[0], row[1], row[2], row[3], row[4], row[5])
                     Setupsystems.append(setupsystems.to_JSON())
 
             connection.close()
@@ -33,7 +33,7 @@ class SetupSystemsModel():
 
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    SELECT idsetupsystems, setupsystems, rangemax, rangemin, lenguage
+                    SELECT idsetupsystems, setupsystems, rangemax, rangemin, lenguage, importance_level
                     FROM setupsystems
                     WHERE idsetupsystems = {id};
                 """
@@ -42,7 +42,7 @@ class SetupSystemsModel():
                 Setupsystems = None
 
                 if row != None:
-                    Setupsystems = SetupSystems(row[0], row[1], row[2], row[3], row[4])
+                    Setupsystems = SetupSystems(row[0], row[1], row[2], row[3], row[4], row[5])
                     Setupsystems = Setupsystems.to_JSON()
 
             connection.close()
@@ -51,15 +51,15 @@ class SetupSystemsModel():
             raise Exception(ex)
 
     @classmethod
-    def add_SetupSystems(self, idsetupsystems, setupsystems, rangemax, rangemin, lenguage):
+    def add_SetupSystems(self, idsetupsystems, setupsystems, rangemax, rangemin, lenguage, importancelevel):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
                 textSQL = f"""
                     INSERT INTO public.setupsystems(
-                    idsetupsystems, setupsystems, rangemax, rangemin, lenguage)
-                    VALUES ({idsetupsystems}, '{setupsystems}', {rangemax}, {rangemin}, '{lenguage}');
+                    idsetupsystems, setupsystems, rangemax, rangemin, lenguage, importance_level)
+                    VALUES ({idsetupsystems}, '{setupsystems}', {rangemax}, {rangemin}, '{lenguage}', '{importancelevel}');
                 """
                 cursor.execute(textSQL)
                 affected_rows = cursor.rowcount
@@ -70,14 +70,14 @@ class SetupSystemsModel():
             raise Exception(ex)
 
     @classmethod
-    def update_SetupSystems(self, idsetupsystems, setupsystems, rangemax, rangemin, lenguage):
+    def update_SetupSystems(self, idsetupsystems, setupsystems, rangemax, rangemin, lenguage, importancelevel):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
                 textSQL = f"""
                     UPDATE public.setupsystems
-                    SET  setupsystems='{setupsystems}', rangemax={rangemax}, rangemin={rangemin}, lenguage='{lenguage}'
+                    SET  setupsystems='{setupsystems}', rangemax={rangemax}, rangemin={rangemin}, lenguage='{lenguage}', importance_level='{importance_level}'
                     WHERE idsetupsystems = {idsetupsystems};
                 """
                 cursor.execute(textSQL)

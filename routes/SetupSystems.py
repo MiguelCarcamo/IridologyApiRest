@@ -33,6 +33,7 @@ def add_user():
         rangemax= setupsystems_details[0]['RangeMax']
         rangemin= setupsystems_details[0]['RangeMin']
         lenguage= setupsystems_details[0]['Lenguage']
+        importance_level= setupsystems_details[0]['importance_level']
 
         connection = get_connection()
         with connection.cursor() as cursor:
@@ -41,7 +42,7 @@ def add_user():
         connection.close()
         idsetupsystems= int(id[0])
 
-        affected_rows = SetupSystemsModel.add_SetupSystems(idsetupsystems, setupsystems, rangemax, rangemin, lenguage)
+        affected_rows = SetupSystemsModel.add_SetupSystems(idsetupsystems, setupsystems, rangemax, rangemin, lenguage, importance_level)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')
@@ -60,8 +61,9 @@ def update_user():
         rangemax= setupsystems_details[0]['RangeMax']
         rangemin= setupsystems_details[0]['RangeMin']
         lenguage= setupsystems_details[0]['Lenguage']
+        importance_level= setupsystems_details[0]['importance_level']
 
-        affected_rows = SetupSystemsModel.update_SetupSystems(idsetupsystems, setupsystems, rangemax, rangemin, lenguage)
+        affected_rows = SetupSystemsModel.update_SetupSystems(idsetupsystems, setupsystems, rangemax, rangemin, lenguage, importance_level)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')

@@ -12,7 +12,7 @@ class SetupBodyOrgansModel():
             with connection.cursor() as cursor:
                 textSQL = """
                     SELECT idsetupbodyorgans, setupbodyorgans.idsetupsystems, setupsystems.setupsystems, bodyorgans, "Left", "Right", 
-                        men, womman, setupbodyorgans.rangemax, setupbodyorgans.rangemin, setupbodyorgans.lenguage
+                        men, womman, setupbodyorgans.rangemax, setupbodyorgans.rangemin, setupbodyorgans.lenguage, setupbodyorgans.importance_level
                     FROM setupbodyorgans
                     LEFT JOIN setupsystems on setupsystems.idsetupsystems = setupbodyorgans.idsetupsystems;
                 """
@@ -20,7 +20,7 @@ class SetupBodyOrgansModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    setupbodyorgansx = SetupBodyOrgans(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])
+                    setupbodyorgansx = SetupBodyOrgans(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11])
                     setupbodyorgans.append(setupbodyorgansx.to_JSON())
 
             connection.close()
@@ -56,7 +56,7 @@ class SetupBodyOrgansModel():
             raise Exception(ex)
     
     @classmethod
-    def add_SetupBodyOrgan(self, IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage):
+    def add_SetupBodyOrgan(self, IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage, importance_level):
         try:
             connection = get_connection()
 
@@ -64,9 +64,9 @@ class SetupBodyOrgansModel():
                 textSQL = f"""
                     INSERT INTO setupbodyorgans(
                         idsetupbodyorgans, idsetupsystems, bodyorgans, "Left", "Right", 
-                        men, womman, rangemax, rangemin, lenguage)
+                        men, womman, rangemax, rangemin, lenguage, importance_level)
                         VALUES ({IDSetupBodyOrgans}, {IDSetupSystems}, '{BodyOrgans}', CAST({Left} AS bit), CAST({Right} AS bit), 
-                                CAST({Men} AS bit), CAST({Womman} AS bit), {RangeMax}, {RangeMin}, '{Lenguage}');
+                                CAST({Men} AS bit), CAST({Womman} AS bit), {RangeMax}, {RangeMin}, '{Lenguage}', '{importance_level}');
                 """
                 cursor.execute(textSQL)
                 affected_rows = cursor.rowcount
@@ -77,7 +77,7 @@ class SetupBodyOrgansModel():
             raise Exception(ex)
     
     @classmethod
-    def update_SetupBodyOrgan(self, IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage):
+    def update_SetupBodyOrgan(self, IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage, importance_level):
         try:
             connection = get_connection()
 
@@ -85,7 +85,7 @@ class SetupBodyOrgansModel():
                 textSQL = f"""
                     UPDATE setupbodyorgans
                     SET  idsetupsystems={IDSetupSystems}, bodyorgans='{BodyOrgans}', "Left"=CAST({Left} AS bit), "Right"=CAST({Right} AS bit), 
-                        men=CAST({Men} AS bit), womman=CAST({Womman} AS bit), rangemax={RangeMax}, rangemin={RangeMin}, lenguage='{Lenguage}'
+                        men=CAST({Men} AS bit), womman=CAST({Womman} AS bit), rangemax={RangeMax}, rangemin={RangeMin}, lenguage='{Lenguage}', importance_level='{importance_level}'
                     WHERE idsetupbodyorgans = {IDSetupBodyOrgans};
                 """
                 cursor.execute(textSQL)

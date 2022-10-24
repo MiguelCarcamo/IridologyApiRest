@@ -11,7 +11,7 @@ class SetupFindingsModel():
 
             with connection.cursor() as cursor:
                 textSQL = """
-                    SELECT idsetupfindings, setupbodyorgans.idsetupbodyorgans, setupbodyorgans.bodyorgans, foods, notfoods, findings, 
+                    SELECT idsetupfindings, setupbodyorgans.idsetupbodyorgans, setupbodyorgans.bodyorgans, findings, 
                         setupfindings.rangemax, setupfindings.rangemin, setupfindings.lenguage
                     FROM setupfindings
                     LEFT JOIN setupbodyorgans on setupfindings.idsetupbodyorgans = setupbodyorgans.idsetupbodyorgans;
@@ -20,7 +20,7 @@ class SetupFindingsModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    setupfindingsx = SetupFindings(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+                    setupfindingsx = SetupFindings(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
                     setupfindings.append(setupfindingsx.to_JSON())
 
             connection.close()
@@ -36,7 +36,7 @@ class SetupFindingsModel():
 
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    SELECT idsetupfindings, setupbodyorgans.idsetupbodyorgans, setupbodyorgans.bodyorgans, foods, notfoods, findings, 
+                    SELECT idsetupfindings, setupbodyorgans.idsetupbodyorgans, setupbodyorgans.bodyorgans, findings, 
                         setupfindings.rangemax, setupfindings.rangemin, setupfindings.lenguage
                     FROM setupfindings
                     LEFT JOIN setupbodyorgans on setupfindings.idsetupbodyorgans = setupbodyorgans.idsetupbodyorgans;
@@ -47,7 +47,7 @@ class SetupFindingsModel():
                 setupfindings = None
 
                 if row != None:
-                    setupfindings = SetupFindings(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+                    setupfindings = SetupFindings(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
                     setupfindings = setupfindings.to_JSON()
 
             connection.close()
@@ -57,15 +57,15 @@ class SetupFindingsModel():
             raise Exception(ex)
     
     @classmethod
-    def add_SetupFinding(self, IDSetupFindings, IDSetupBodyOrgans, Foods, NotFoods, Findings, RangeMax, RangeMin, Lenguage):
+    def add_SetupFinding(self, IDSetupFindings, IDSetupBodyOrgans, Findings, RangeMax, RangeMin, Lenguage):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
                 textSQL = f"""
                     INSERT INTO public.setupfindings(
-                    idsetupfindings, idsetupbodyorgans, foods, notfoods, findings, rangemax, rangemin, lenguage)
-                    VALUES ({IDSetupFindings}, {IDSetupBodyOrgans}, '{Foods}', '{NotFoods}', '{Findings}', {RangeMax}, {RangeMin}, '{Lenguage}');
+                    idsetupfindings, idsetupbodyorgans, findings, rangemax, rangemin, lenguage)
+                    VALUES ({IDSetupFindings}, {IDSetupBodyOrgans}, '{Findings}', {RangeMax}, {RangeMin}, '{Lenguage}');
                 """
                 cursor.execute(textSQL)
                 affected_rows = cursor.rowcount
@@ -76,14 +76,14 @@ class SetupFindingsModel():
             raise Exception(ex)
 
     @classmethod
-    def update_SetupFinding(self, IDSetupFindings, IDSetupBodyOrgans, Foods, NotFoods, Findings, RangeMax, RangeMin, Lenguage):
+    def update_SetupFinding(self, IDSetupFindings, IDSetupBodyOrgans, Findings, RangeMax, RangeMin, Lenguage):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
                 textSQL = f"""
                     UPDATE public.setupfindings
-                    SET idsetupbodyorgans={IDSetupBodyOrgans}, foods='{Foods}', notfoods='{NotFoods}', findings='{Findings}', rangemax={RangeMax}, rangemin={RangeMin}, lenguage='{Lenguage}'
+                    SET idsetupbodyorgans={IDSetupBodyOrgans}, findings='{Findings}', rangemax={RangeMax}, rangemin={RangeMin}, lenguage='{Lenguage}'
                     WHERE idsetupfindings= {IDSetupFindings};
                 """
                 cursor.execute(textSQL)

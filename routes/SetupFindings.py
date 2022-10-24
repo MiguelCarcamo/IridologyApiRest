@@ -27,8 +27,6 @@ def add_SetupFinding():
 
         # IDSetupFindings = setupfindings_details[0]['IDSetupFindings']
         IDSetupBodyOrgans = setupfindings_details[0]['IDSetupBodyOrgans']
-        Foods = setupfindings_details[0]['Foods']
-        NotFoods = setupfindings_details[0]['NotFoods']
         Findings = setupfindings_details[0]['Findings']
         RangeMax = setupfindings_details[0]['RangeMax']
         RangeMin = setupfindings_details[0]['RangeMin']
@@ -41,7 +39,7 @@ def add_SetupFinding():
         connection.close()
         IDSetupFindings= int(id[0])
 
-        affected_rows = SetupFindingsModel.add_SetupFinding(IDSetupFindings, IDSetupBodyOrgans, Foods, NotFoods, Findings, RangeMax, RangeMin, Lenguage)
+        affected_rows = SetupFindingsModel.add_SetupFinding(IDSetupFindings, IDSetupBodyOrgans, Findings, RangeMax, RangeMin, Lenguage)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')
@@ -58,14 +56,12 @@ def update_SetupFinding():
 
         IDSetupFindings = setupfindings_details[0]['IDSetupFindings']
         IDSetupBodyOrgans = setupfindings_details[0]['IDSetupBodyOrgans']
-        Foods = setupfindings_details[0]['Foods']
-        NotFoods = setupfindings_details[0]['NotFoods']
         Findings = setupfindings_details[0]['Findings']
         RangeMax = setupfindings_details[0]['RangeMax']
         RangeMin = setupfindings_details[0]['RangeMin']
         Lenguage = setupfindings_details[0]['Lenguage']
 
-        affected_rows = SetupFindingsModel.update_SetupFinding(IDSetupFindings, IDSetupBodyOrgans, Foods, NotFoods, Findings, RangeMax, RangeMin, Lenguage)
+        affected_rows = SetupFindingsModel.update_SetupFinding(IDSetupFindings, IDSetupBodyOrgans, Findings, RangeMax, RangeMin, Lenguage)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')

@@ -1,6 +1,6 @@
 class SetupBodyOrgans():
 
-    def __init__(self, IDSetupBodyOrgans, IDSetupSystems, SetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage) -> None:
+    def __init__(self, IDSetupBodyOrgans, IDSetupSystems, SetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage, importance_level) -> None:
         self.IDSetupBodyOrgans = IDSetupBodyOrgans
         self.IDSetupSystems = IDSetupSystems
         self.SetupSystems = SetupSystems
@@ -12,6 +12,7 @@ class SetupBodyOrgans():
         self.RangeMax = RangeMax
         self.RangeMin = RangeMin
         self.Lenguage = Lenguage
+        self.importance_level = importance_level
 
 
     def to_JSON(self):
@@ -27,4 +28,5 @@ class SetupBodyOrgans():
             'RangeMax': self.RangeMax,
             'RangeMin': self.RangeMin,
             'Lenguage': self.Lenguage,
+            'importance_level': self.importance_level,
         }

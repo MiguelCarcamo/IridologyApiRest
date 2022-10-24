@@ -38,6 +38,7 @@ def add_user():
         RangeMax = setupbodyOrgan_details[0]['RangeMax']
         RangeMin = setupbodyOrgan_details[0]['RangeMin']
         Lenguage = setupbodyOrgan_details[0]['Lenguage']
+        importance_level= setupbodyOrgan_details[0]['importance_level']
 
         connection = get_connection()
         with connection.cursor() as cursor:
@@ -46,7 +47,7 @@ def add_user():
         connection.close()
         IDSetupBodyOrgans= int(id[0])
 
-        affected_rows = SetupBodyOrgansModel.add_SetupBodyOrgan(IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage)
+        affected_rows = SetupBodyOrgansModel.add_SetupBodyOrgan(IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage, importance_level)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')
@@ -71,8 +72,9 @@ def update_user():
         RangeMax = setupbodyOrgan_details[0]['RangeMax']
         RangeMin = setupbodyOrgan_details[0]['RangeMin']
         Lenguage = setupbodyOrgan_details[0]['Lenguage']
+        importance_level= setupbodyOrgan_details[0]['importance_level']
 
-        affected_rows = SetupBodyOrgansModel.update_SetupBodyOrgan(IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage)
+        affected_rows = SetupBodyOrgansModel.update_SetupBodyOrgan(IDSetupBodyOrgans, IDSetupSystems, BodyOrgans, Left, Right, Men, Womman, RangeMax, RangeMin, Lenguage, importance_level)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')
