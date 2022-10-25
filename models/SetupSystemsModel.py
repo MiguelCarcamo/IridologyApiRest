@@ -77,7 +77,7 @@ class SetupSystemsModel():
             with connection.cursor() as cursor:
                 textSQL = f"""
                     UPDATE public.setupsystems
-                    SET  setupsystems='{setupsystems}', rangemax={rangemax}, rangemin={rangemin}, lenguage='{lenguage}', importance_level='{importance_level}'
+                    SET  setupsystems='{setupsystems}', rangemax={rangemax}, rangemin={rangemin}, lenguage='{lenguage}', importance_level='{importancelevel}'
                     WHERE idsetupsystems = {idsetupsystems};
                 """
                 cursor.execute(textSQL)
