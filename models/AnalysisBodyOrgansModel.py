@@ -12,7 +12,7 @@ class AnalysisBodyOrgansModel():
             with connection.cursor() as cursor:
                 textSQL = f"""
                     select id, idanalysis, systems, bodyorgans, bodyorgansvalue, 
-                            foods, notfoods, findings, symptoms, comments 
+                            findings, symptoms, comments 
                     from analysis_bodyorgans
                     where idanalysis = {id};
                 """
@@ -20,7 +20,7 @@ class AnalysisBodyOrgansModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    Analysisz = AnalysisBodyOrgans(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+                    Analysisz = AnalysisBodyOrgans(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
                     AnalysisX.append(Analysisz.to_JSON())
 
             connection.close()
