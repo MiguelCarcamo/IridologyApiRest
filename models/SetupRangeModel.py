@@ -18,7 +18,7 @@ class SetupFoodsModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    setuprangex = SetupRange(row[0], row[1], row[2], row[3])
+                    setuprangex = SetupRange(row[0], row[1], row[3], row[2])
                     setuprange.append(setuprangex.to_JSON())
 
             connection.close()
