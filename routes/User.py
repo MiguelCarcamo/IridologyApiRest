@@ -88,8 +88,9 @@ def update_user():
         idinfouser = user_details[0]['idinfouser']
         TypeUser= user_details[0]['TypeUser']
         userPassword = user_details[0]['userPassword']
+        Status = user_details[0]['Status']
 
-        affected_rows = UserModel.update_user(idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage, userPassword, TypeUser )
+        affected_rows = UserModel.update_user(idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage, userPassword, TypeUser, Status )
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')

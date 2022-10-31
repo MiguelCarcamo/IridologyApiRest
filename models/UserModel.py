@@ -13,7 +13,7 @@ class UserModel():
             with connection.cursor() as cursor:
                 textSQL = """
                     SELECT idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage,
-                        "User", "Password", Status,
+                        "User", "Password", case Status when '1' then 'Active' else 'deactivated' end as Status,
                         TypeUser.TypeUser, TypeUser.IDTypeUser
                     FROM infouser
                     LEFT JOIN TypeUser ON infouser.IDTypeUser = TypeUser.IDTypeUser;
@@ -38,7 +38,7 @@ class UserModel():
             with connection.cursor() as cursor:
                 textSQL = f"""
                     SELECT idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage,
-                        "User", "Password", Status,
+                        "User", "Password", case Status when '1' then 'Active' else 'deactivated' end as Status,
                         TypeUser.TypeUser, TypeUser.IDTypeUser
                     FROM infouser
                     LEFT JOIN TypeUser ON infouser.IDTypeUser = TypeUser.IDTypeUser
@@ -81,14 +81,14 @@ class UserModel():
             raise Exception(ex)
 
     @classmethod
-    def update_user(self, idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage, Password, idtypeuser):
+    def update_user(self, idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage, Password, idtypeuser, Status):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
                 textSQL = f"""
                     UPDATE infouser
-                    SET username='{username}', userlastname='{userlastname}', usermail='{usermail}', userphone='{userphone}', usercountry='{usercountry}', userlenguage='{userlenguage}', "Password"='{Password}', idtypeuser='{idtypeuser}'
+                    SET username='{username}', userlastname='{userlastname}', usermail='{usermail}', userphone='{userphone}', usercountry='{usercountry}', userlenguage='{userlenguage}', "Password"='{Password}', idtypeuser='{idtypeuser}', Status = '{Status}'
                     WHERE idinfouser={idinfouser};
                 """
                 cursor.execute(textSQL)
