@@ -14,7 +14,7 @@ class UserModel():
                 textSQL = """
                     SELECT idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage,
                         "User", "Password", Status,
-                        TypeUser.TypeUser
+                        TypeUser.TypeUser, TypeUser.IDTypeUser
                     FROM infouser
                     LEFT JOIN TypeUser ON infouser.IDTypeUser = TypeUser.IDTypeUser;
                 """
@@ -22,7 +22,7 @@ class UserModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    user = User(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])
+                    user = User(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11])
                     users.append(user.to_JSON())
 
             connection.close()
@@ -39,7 +39,7 @@ class UserModel():
                 textSQL = f"""
                     SELECT idinfouser, username, userlastname, usermail, userphone, usercountry, userlenguage,
                         "User", "Password", Status,
-                        TypeUser.TypeUser
+                        TypeUser.TypeUser, TypeUser.IDTypeUser
                     FROM infouser
                     LEFT JOIN TypeUser ON infouser.IDTypeUser = TypeUser.IDTypeUser
                     WHERE idinfouser = {id};
@@ -49,7 +49,7 @@ class UserModel():
 
                 user = None
                 if row != None:
-                    user = User(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])
+                    user = User(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11])
                     user = user.to_JSON()
 
             connection.close()
