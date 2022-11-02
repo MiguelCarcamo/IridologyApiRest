@@ -117,3 +117,32 @@ def login_user():
 
     except Exception as ex:
         return jsonify({'message': str(ex)}), 500
+
+@main.route('/Display/<id>')
+def display_user(id):
+    try:
+        user = UserModel.get_userDisplay(id)
+        if user != None:
+            return jsonify(user)
+        else:
+            return jsonify({}), 404
+    except Exception as ex:
+        return jsonify({'message': str(ex)}), 500
+
+@main.route('/Display/', methods=['PUT'])
+def update_displayuser():
+    try:
+        user_details = request.get_json()
+
+        id= user_details[0]['id']
+        access= user_details[0]['access']
+
+        affected_rows = UserModel.update_Display(id, access)
+
+        if affected_rows == 1:
+            return dict(msj='Accion Realizada Correctamente')
+        else:
+            return dict(msj='Accion no fue Completada'), 500
+
+    except Exception as ex:
+        return jsonify({'message': str(ex)}), 500

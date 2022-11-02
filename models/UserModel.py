@@ -1,8 +1,51 @@
 from database.db import get_connection
 from .entities.User import User
+from .entities.Display import Display
 
 
 class UserModel():
+
+    @classmethod
+    def get_userDisplay(self, id):
+        try:
+            connection = get_connection()
+            users = []
+
+            with connection.cursor() as cursor:
+                textSQL = f"""
+                    SELECT du.id, namedisplay, navigate, icon, access FROM display_user du
+                    INNER JOIN display d on d.id = du.iddisplay
+                    where du.idinfouser = {id};
+                """
+                cursor.execute(textSQL)
+                resultset = cursor.fetchall()
+
+                for row in resultset:
+                    user = Display(row[0], row[1], row[2], row[3], row[4])
+                    users.append(user.to_JSON())
+
+            connection.close()
+            return users
+        except Exception as ex:
+            raise Exception(ex)
+    
+    @classmethod
+    def update_Display(self, id2, access):
+        try:
+            connection = get_connection()
+
+            with connection.cursor() as cursor:
+                textSQL = f"""
+                    update display_user set access = {access}
+                    where id = {id2};
+                """
+                cursor.execute(textSQL)
+                affected_rows = cursor.rowcount
+                connection.commit()
+            connection.close()
+            return affected_rows
+        except Exception as ex:
+            raise Exception(ex)
 
     @classmethod
     def get_users(self):
