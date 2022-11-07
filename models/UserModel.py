@@ -13,7 +13,8 @@ class UserModel():
 
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    SELECT du.id, namedisplay, navigate, icon, access FROM display_user du
+                    SELECT du.id, namedisplay, navigate, icon, access, d."PositionSeccion"
+                    FROM display_user du
                     INNER JOIN display d on d.id = du.iddisplay
                     where du.idinfouser = {id};
                 """
@@ -21,7 +22,7 @@ class UserModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    user = Display(row[0], row[1], row[2], row[3], row[4])
+                    user = Display(row[0], row[1], row[2], row[3], row[4], row[5])
                     users.append(user.to_JSON())
 
             connection.close()
