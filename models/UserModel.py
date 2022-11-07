@@ -49,6 +49,19 @@ class UserModel():
             raise Exception(ex)
 
     @classmethod
+    def user_Display(self, id, typeUse):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                cursor.callproc('displayUser',[id,typeUse])
+                connection.commit()
+                affected_rows = cursor.rowcount
+            connection.close()
+            return affected_rows
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
     def get_users(self):
         try:
             connection = get_connection()

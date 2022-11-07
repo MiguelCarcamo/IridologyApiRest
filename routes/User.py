@@ -67,6 +67,7 @@ def add_user():
             with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
                 server.login(sender_email, password)
                 server.sendmail(sender_email, receiver_email, message)
+            x = UserModel.user_Display(idinfouser, TypeUser)
             return dict(msj='Accion Realizada Correctamente')
         else:
             return dict(msj='Accion no fue Completada'), 500
