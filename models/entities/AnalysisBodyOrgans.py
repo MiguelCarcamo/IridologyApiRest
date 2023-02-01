@@ -1,5 +1,5 @@
 class AnalysisBodyOrgans():
-    def __init__(self, ID, IdAnalysis=None, Sistems=None, bodyorgans=None, bodyorgansvalue=None, findings=None, symptoms=None, Comments=None) -> None:
+    def __init__(self, ID, IdAnalysis=None, Sistems=None, bodyorgans=None, bodyorgansvalue=None, findings=None, symptoms=None, Comments=None, Left=None, Right=None) -> None:
         self.ID = ID
         self.IdAnalysis = IdAnalysis
         self.Sistems = Sistems
@@ -8,6 +8,8 @@ class AnalysisBodyOrgans():
         self.findings = findings
         self.symptoms = symptoms
         self.Comments = Comments
+        self.Left = Left
+        self.Right = Right
 
     def to_JSON(self):
         return {
@@ -19,4 +21,6 @@ class AnalysisBodyOrgans():
             'findings': self.findings,
             'symptoms': self.symptoms,
             'Comments': self.Comments,
+            'Left': self.Left,
+            'Right': self.Right,
         }
