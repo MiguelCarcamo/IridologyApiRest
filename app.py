@@ -23,4 +23,4 @@ app.register_blueprint(SetupRange.main, url_prefix='/api/SetupRange')
 app.register_blueprint(File_Action.main, url_prefix='/api/File')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=5000)
+    app.run(threaded=True, port=5000)
