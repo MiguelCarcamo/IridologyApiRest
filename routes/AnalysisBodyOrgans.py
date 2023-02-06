@@ -30,8 +30,9 @@ def update_Analysis():
         bodyorgansvalue = Analysis_details[0]['bodyorgansvalue']
         systems = Analysis_details[0]['systems']
         bodyorgans = Analysis_details[0]['bodyorgans']
+        part = Analysis_details[0]['part']
 
-        affected_rows = AnalysisBodyOrgansModel.update_AnalysisBodyOrgansModel(id, bodyorgansvalue, systems, bodyorgans)
+        affected_rows = AnalysisBodyOrgansModel.update_AnalysisBodyOrgansModel(id, bodyorgansvalue, systems, bodyorgans, part)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')

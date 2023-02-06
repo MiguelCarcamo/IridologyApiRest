@@ -19,8 +19,9 @@ def update_AnalysisSistems():
         Analysis_details = request.get_json()
 
         id = Analysis_details[0]['id']
+        part = Analysis_details[0]['part']
 
-        affected_rows = AnalysisSistemsModel.update_AnalysisSistems(id)
+        affected_rows = AnalysisSistemsModel.update_AnalysisSistems(id, part)
 
         if affected_rows == 1:
             return dict(msj='Accion Realizada Correctamente')

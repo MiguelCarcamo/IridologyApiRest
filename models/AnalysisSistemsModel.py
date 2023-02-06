@@ -11,7 +11,7 @@ class AnalysisSistemsModel():
 
             with connection.cursor() as cursor:
                 textSQL = f"""
-                    select id, idanalysis, systems, systemsvalue, comments 
+                    select id, idanalysis, systems, systemsvalue, comments, systemsvalue_l, systemsvalue_r
                     from analysis_systems
                     where idanalysis = {id};
                 """
@@ -19,7 +19,7 @@ class AnalysisSistemsModel():
                 resultset = cursor.fetchall()
 
                 for row in resultset:
-                    Analysisz = AnalysisSistems(row[0], row[1], row[2], row[3], row[4])
+                    Analysisz = AnalysisSistems(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
                     AnalysisX.append(Analysisz.to_JSON())
 
             connection.close()
@@ -28,12 +28,15 @@ class AnalysisSistemsModel():
             raise Exception(ex)
     
     @classmethod
-    def update_AnalysisSistems(self, id):
+    def update_AnalysisSistems(self, id, part):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
-                cursor.callproc('analisysSystems',[id])
+                if(part == 'Left'):
+                    cursor.callproc('analisysSystems_l',[id])
+                else:
+                    cursor.callproc('analisysSystems_r',[id])
                 affected_rows = cursor.rowcount
                 connection.commit()
             connection.close()
